@@ -48,7 +48,8 @@ export LDFLAGS="-L/app/.apt/usr/lib/libblas -L/app/.apt/usr/lib/lapack $LDFLAGS"
 mkdir -p $BUILD_DIR/.profile.d
 cp "$BUILDPACK_DIR/bin/r_environment.sh" $BUILD_DIR/.profile.d/r_environment.sh
 
-R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
+# Rserve is not accessible at runtime with this one line by itself
+# R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
 
 # Building Java binary
 
