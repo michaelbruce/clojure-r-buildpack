@@ -32,4 +32,4 @@ export PATH="$BUILD_DIR:$CACHE_DIR:$PATH"
 
 echo $PATH
 
-java --version
+java -h
