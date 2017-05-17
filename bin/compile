@@ -42,6 +42,9 @@ BOOT_SH_URL="https://github.com/boot-clj/boot/releases/download/${BOOT_SH_VERSIO
 BOOT_SH_CACHE_PATH="$CACHE_DIR/boot"
 BOOT_SH_SLUG_PATH="$BUILD_DIR/boot"
 
+mkdir -p $BOOT_SH_CACHE_PATH
+mkdir -p $BOOT_SH_SLUG_PATH
+
 if [ ! -r "$BOOT_SH_CACHE_PATH" ]; then
     echo "-----> Installing Boot ${BOOT_SH_VERSION} from github..."
     echo "       Downloading boot.sh"
