@@ -19,6 +19,8 @@ BUILD_PACK_VERSION="20160720-0331"
 R_VERSION="3.3.1"
 R_BINARIES="http://${S3_BUCKET}.s3.amazonaws.com/${STACK}/R-${R_VERSION}-binaries-${BUILD_PACK_VERSION}.tar.gz"
 
+R -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
+
 # Building Java binary
 
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
