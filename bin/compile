@@ -42,9 +42,6 @@ curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
 # need to copy the binaries to /app/vendor so that R works when compiling packages
 
-mkdir -p /app/.apt
-cp -R $VENDOR_DIR/.apt/* /app/.apt
-
 mkdir -p /app/vendor/R
 cp -R $VENDOR_DIR/R/* /app/vendor/R
 
