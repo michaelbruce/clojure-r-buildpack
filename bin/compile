@@ -10,6 +10,9 @@ BUILDPACK_DIR="$(dirname $(dirname $0))"
 [ -z "${STACK}" ] && STACK="cedar-14"
 [ -z "${CRAN_MIRROR}" ] && CRAN_MIRROR="http://cloud.r-project.org"
 
+echo $BUILD_DIR
+echo $CACHE_DIR
+
 mkdir -p $CACHE_DIR
 mkdir -p $VENDOR_DIR
 
@@ -39,8 +42,8 @@ export LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-l
 export INCLUDE_PATH="/app/.apt/usr/include:$INCLUDE_PATH"
 export CPATH="$INCLUDE_PATH"
 export CPPPATH="$INCLUDE_PATH"
-export PKG_CONFIG_PATH="/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/usr/lib/i386-linux-gnu/pkgconfig:/app/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
-export LDFLAGS="-L/app/.apt/usr/lib/libblas -L/app/.apt/usr/lib/lapack $LDFLAGS"
+# export PKG_CONFIG_PATH="/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/usr/lib/i386-linux-gnu/pkgconfig:/app/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+# export LDFLAGS="-L/app/.apt/usr/lib/libblas -L/app/.apt/usr/lib/lapack $LDFLAGS"
 
 $BUILD_DIR/R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
 
