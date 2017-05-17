@@ -5,6 +5,8 @@ set -e
 BUILD_DIR=$1
 CACHE_DIR="$2/vendor"
 
+mkdir -p $CACHE_DIR
+
 # Building R binary
 
 if [ -z "${STACK}" ];
