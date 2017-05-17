@@ -62,6 +62,6 @@ export PATH="$BUILD_DIR:$CACHE_DIR:$PATH"
 
 echo $PATH
 
-# Compile application
+# Compile application as an uberjar
 
-boot build
+boot build 2>&1
