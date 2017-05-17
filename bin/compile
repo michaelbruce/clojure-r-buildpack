@@ -62,7 +62,7 @@ export PKG_CONFIG_PATH="/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/u
 export LDFLAGS="-L/app/.apt/usr/lib/libblas -L/app/.apt/usr/lib/lapack $LDFLAGS"
 
 /tmp/app/vendor/R/bin/R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
-/tmp/app/vendor/R/bin/R --no-save -e "library(Rserve); Rserve(args='--no-save')" # Start Rserve in daemon mode
+#/tmp/app/vendor/R/bin/R --no-save -e "library(Rserve); Rserve(args='--no-save')" # Start Rserve in daemon mode
 
 # Building Java binary
 
