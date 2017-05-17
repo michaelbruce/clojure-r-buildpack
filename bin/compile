@@ -38,6 +38,12 @@ cp -R $VENDOR_DIR/.apt/* /app/.apt
 
 mkdir -p /app/vendor/R
 cp -R $VENDOR_DIR/R/* /app/vendor/R
+cp -R /tmp/app/vendor/R/* /app/vendor/R
+
+echo "XXX"
+ls /app/vendor/R
+echo "XXX"
+ls /app/vendor/R/bin
 
 export PATH="/app/vendor/R/bin:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
