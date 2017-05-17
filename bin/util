@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-indent() {
-  c='s/^/       /'
-  case $(uname) in
-    Darwin) sed -l "$c";;
-    *)      sed -u "$c";;
-  esac
-}
-
 error() {
   echo
   echo " !     ERROR: $*" | indent no_first_line_indent

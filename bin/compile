@@ -9,6 +9,14 @@ mkdir -p $CACHE_DIR
 
 # Building R binary
 
+indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
 if [ -z "${STACK}" ];
 then
   STACK="cedar-14"
