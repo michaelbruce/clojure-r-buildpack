@@ -26,10 +26,18 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 # Install JDK
 install_java_with_overlay ${BUILD_DIR}
 
+java -version
+
+# Install boot
+
+if [[ ! -e /usr/local/bin/boot ]]; then
+    sudo bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
+    boot
+fi
+
 # Printing diagnostic information
 
 export PATH="$BUILD_DIR:$CACHE_DIR:$PATH"
 
 echo $PATH
 
-java -h
