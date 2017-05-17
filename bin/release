@@ -2,6 +2,6 @@
 
 cat <<EOF
 default_process_types:
-  web: boot repl -e '(println "HELLO WORLD")'
+  web: echo "HELLO MIKE"
 EOF
 

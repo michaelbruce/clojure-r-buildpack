@@ -9,4 +9,4 @@ export PATH="$BUILD_DIR:$CACHE_DIR:$PATH"
 
 echo $PATH
 
-compgen -c | grep java
+java --version
