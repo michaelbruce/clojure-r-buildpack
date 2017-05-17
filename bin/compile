@@ -2,14 +2,6 @@
 
 set -e
 
-function indent() {
-  c='s/^/       /'
-  case $(uname) in
-    Darwin) sed -l "$c";;
-    *)      sed -u "$c";;
-  esac
-}
-
 BUILD_DIR=$1
 CACHE_DIR="$2/vendor"
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
@@ -37,8 +29,8 @@ then
 fi
 
 # vendor R into the slug
-echo "Vendoring R $R_VERSION for $STACK stack ($BUILD_PACK_VERSION)" | indent
-echo "Downloading and unpacking R binaries ($R_BINARIES)" | indent
+echo "Vendoring R $R_VERSION for $STACK stack ($BUILD_PACK_VERSION)"
+echo "Downloading and unpacking R binaries ($R_BINARIES)"
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
 mkdir -p /app/.apt
@@ -46,10 +38,6 @@ cp -R $VENDOR_DIR/.apt/* /app/.apt
 
 mkdir -p /app/vendor/R
 cp -R $VENDOR_DIR/R/* /app/vendor/R
-
-# need to copy the binaries to /app/vendor so that R works when compiling packages
-echo $BUILD_DIR
-ls $BUILD_DIR
 
 export PATH="/app/vendor/R/bin:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
@@ -73,6 +61,8 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 install_java_with_overlay ${BUILD_DIR}
 
 java -version
+
+echo "JAVA_OPTS: $JAVA_OPTS"
 
 # Install boot
 
