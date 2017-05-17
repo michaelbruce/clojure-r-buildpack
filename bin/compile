@@ -4,48 +4,35 @@ set -e
 
 BUILD_DIR=$1
 CACHE_DIR="$2/vendor"
+VENDOR_DIR="$BUILD_DIR/vendor"
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
 BUILDPACK_DIR="$(dirname $(dirname $0))"
+[ -z "${STACK}" ] && STACK="cedar-14"
+[ -z "${CRAN_MIRROR}" ] && CRAN_MIRROR="http://cloud.r-project.org"
 
 mkdir -p $CACHE_DIR
+mkdir -p $VENDOR_DIR
 
 # Building R binary
-
-if [ -z "${STACK}" ];
-then
-  STACK="cedar-14"
-fi
 
 S3_BUCKET="heroku-buildpack-r"
 BUILD_PACK_VERSION="20160720-0331"
 R_VERSION="3.3.1"
 R_BINARIES="http://${S3_BUCKET}.s3.amazonaws.com/${STACK}/R-${R_VERSION}-binaries-${BUILD_PACK_VERSION}.tar.gz"
-VENDOR_DIR="$BUILD_DIR/vendor"
-
-# define CRAN mirror if unset
-if [ -z "${CRAN_MIRROR}" ];
-then
-  CRAN_MIRROR="http://cloud.r-project.org"
-fi
 
 # vendor R into the slug
 echo "Vendoring R $R_VERSION for $STACK stack ($BUILD_PACK_VERSION)"
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
-mkdir -p /app/.apt
-cp -R $VENDOR_DIR/.apt/* /app/.apt
+# mkdir -p /app/.apt
+# cp -R $VENDOR_DIR/.apt/* /app/.apt
 
 mkdir -p /app/vendor/R
 cp -R $VENDOR_DIR/R/* /app/vendor/R
-cp -R /tmp/app/vendor/R/* /app/vendor/R
+cp -R $VENDOR_DIR/R/* /app/vendor/R
 
-echo "XXX"
-ls /app/vendor/R
-echo "XXX"
-ls /app/vendor/R/bin
-
-export PATH="/app/vendor/R/bin:/app/.apt/usr/bin:$PATH"
+export PATH="$BUILD_DIR:/app/vendor/R/bin:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
 export LD_LIBRARY_PATH="/app/.apt/usr/lib/libblas:/app/.apt/usr/lib/lapack:/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:$LIBRARY_PATH"
@@ -55,7 +42,7 @@ export CPPPATH="$INCLUDE_PATH"
 export PKG_CONFIG_PATH="/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/usr/lib/i386-linux-gnu/pkgconfig:/app/.apt/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
 export LDFLAGS="-L/app/.apt/usr/lib/libblas -L/app/.apt/usr/lib/lapack $LDFLAGS"
 
-/tmp/app/vendor/R/bin/R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
+$BUILD_DIR/R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
 
 # Building Java binary
 
