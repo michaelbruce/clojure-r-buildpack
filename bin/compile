@@ -5,4 +5,8 @@ set -e
 BUILD_DIR=$1
 CACHE_DIR="$2/vendor"
 
+export PATH="$BUILD_DIR:$CACHE_DIR:$PATH"
+
 echo $PATH
+
+compgen -c | grep java
