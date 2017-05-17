@@ -41,9 +41,8 @@ echo "Downloading and unpacking R binaries ($R_BINARIES)" | indent
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
 # need to copy the binaries to /app/vendor so that R works when compiling packages
-
-mkdir -p /app/vendor/R
-cp -R $VENDOR_DIR/R/* /app/vendor/R
+echo $BUILD_DIR
+ls $BUILD_DIR
 
 export PATH="/app/vendor/R/bin:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
