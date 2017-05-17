@@ -45,6 +45,8 @@ BOOT_SH_SLUG_PATH="$BUILD_DIR/boot"
 if [ ! -r "$BOOT_SH_CACHE_PATH" ]; then
     echo "-----> Installing Boot ${BOOT_SH_VERSION} from github..."
     echo "       Downloading boot.sh"
+    echo $BOOT_SH_CACHE_PATH
+    echo $BOOT_SH_URL
     curl -L -s -o "$BOOT_SH_CACHE_PATH" "$BOOT_SH_URL"
     chmod a+x "$BOOT_SH_CACHE_PATH"
     echo "       ...done"
