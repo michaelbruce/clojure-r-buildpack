@@ -64,4 +64,7 @@ echo $PATH
 
 # Compile application as an uberjar
 
+boot # run boot for the first time
+echo 'boot ran for the first time'
+
 boot build 2>&1
