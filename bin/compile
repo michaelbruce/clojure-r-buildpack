@@ -121,6 +121,7 @@ else
         build-step "Fetching TeX Live $VERSION"
     fi
 
+    TEXLIVE_URL="ftp://tug.org/historic/systems/texlive/2016/texlive-20160523-bin.tar.xz"
     curl $TEXLIVE_URL -s -o - | tar xzf - -C $TEXLIVE_HOME
 
     # Make sure the cache is empty
