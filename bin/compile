@@ -44,6 +44,9 @@ chmod +x $VENDOR_DIR/wkhtmltopdf
 
 # Building ghostscript
 
+sudo apt-get update
+sudo apt-get -y install ghostscript
+
 # Building R binary
 
 S3_BUCKET="heroku-buildpack-r"
