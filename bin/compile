@@ -48,8 +48,8 @@ chmod +x $VENDOR_DIR/wkhtmltopdf
 
 echo "-----> Installing Ghostscript 9.20 using build directory $1"
 
-PACKAGE="https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostpcl-9.20-linux-x86_64.tgz"
-BINARY="ghostpcl-9.20-linux-x86_64/gpcl6-920-linux_x86_64"
+PACKAGE="https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs921/ghostscript-9.21-linux-x86_64.tgz"
+BINARY="ghostscript-9.21-linux-x86_64/gs-921-linux-x86_64"
 LOCATION="$BUILD_DIR/vendor/gs"
 
 cd $BUILD_DIR
