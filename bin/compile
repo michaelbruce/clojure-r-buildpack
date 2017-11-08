@@ -116,7 +116,3 @@ echo "JAVA_OPTS: $JAVA_OPTS"
 export PATH="$BUILD_DIR:$CACHE_DIR:$PATH"
 
 echo $PATH
-
-# Compile application as an uberjar
-
-boot build
