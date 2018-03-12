@@ -75,8 +75,9 @@ echo "Vendoring R $R_VERSION for $STACK stack ($BUILD_PACK_VERSION)"
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
-mkdir -p /app/.apt
-cp -R $VENDOR_DIR/.apt/* /app/.apt
+# Do we need these apt commands?
+# mkdir -p /app/.apt
+# cp -R $VENDOR_DIR/.apt/* /app/.apt
 
 mkdir -p /app/vendor/R
 cp -R $VENDOR_DIR/R/* /app/vendor/R
