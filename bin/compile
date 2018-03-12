@@ -79,8 +79,8 @@ curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 # mkdir -p /app/.apt
 # cp -R $VENDOR_DIR/.apt/* /app/.apt
 
-mkdir -p /app/vendor/R
-cp -R $VENDOR_DIR/R/* /app/vendor/R
+# mkdir -p /app/vendor/R
+# cp -R $VENDOR_DIR/R/* /app/vendor/R
 
 export PATH="/app/vendor/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
