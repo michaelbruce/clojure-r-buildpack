@@ -7,7 +7,6 @@ CACHE_DIR="$2/vendor"
 VENDOR_DIR="$BUILD_DIR/vendor"
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
 BUILDPACK_DIR="$(dirname $(dirname $0))"
-[ -z "${STACK}" ] && STACK="cedar-14"
 [ -z "${CRAN_MIRROR}" ] && CRAN_MIRROR="http://cloud.r-project.org"
 
 echo $BUILD_DIR
@@ -70,17 +69,16 @@ BUILD_PACK_VERSION="latest"
 R_VERSION="3.4.0"
 R_BINARIES="http://${S3_BUCKET}.s3.amazonaws.com/${STACK}/R-${R_VERSION}-binaries-${BUILD_PACK_VERSION}.tar.gz"
 
+https://cran.r-project.org/src/base/R-3/R-3.4.3.tar.gz
+
 # vendor R into the slug
-echo "Vendoring R $R_VERSION for $STACK stack ($BUILD_PACK_VERSION)"
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
-curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
+# curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
+R_INSTALL_LINK="https://cran.r-project.org/bin/linux/ubuntu/trusty/r-base_3.4.3-1trusty0_all.deb"
 
-# Do we need these apt commands?
-# mkdir -p /app/.apt
-# cp -R $VENDOR_DIR/.apt/* /app/.apt
-
-# mkdir -p /app/vendor/R
-# cp -R $VENDOR_DIR/R/* /app/vendor/R
+wget -O r-base.deb $R_INSTALL_LINK
+dpkg -i r-base.deb
+apt-get install -f
 
 export PATH="/app/vendor/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
