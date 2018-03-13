@@ -63,22 +63,16 @@ mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/vendor/gs/bin:\$PATH\"" > $BUILD_DIR/.profile.d/ghostscript.sh
 
 # Building R binary
-
-S3_BUCKET="heroku-buildpack-r"
-BUILD_PACK_VERSION="latest"
-R_VERSION="3.4.0"
-R_BINARIES="http://${S3_BUCKET}.s3.amazonaws.com/${STACK}/R-${R_VERSION}-binaries-${BUILD_PACK_VERSION}.tar.gz"
-
-https://cran.r-project.org/src/base/R-3/R-3.4.3.tar.gz
+# updates can be found herehttps://heroku-buildpack-r.s3.amazonaws.com/
+R_BINARIES="http://${S3_BUCKET}.s3.amazonaws.com/heroku-16/R-3.4.3-binaries-20180106-1146.tar.gz"
 
 # vendor R into the slug
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
 # curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 R_INSTALL_LINK="https://cran.r-project.org/bin/linux/ubuntu/trusty/r-base_3.4.3-1trusty0_all.deb"
 
-wget -O r-base.deb $R_INSTALL_LINK
-dpkg -i r-base.deb
-apt-get install -f
+mkdir -p /app/vendor/R
+cp -r $VENDOR_DIR/R/* /app/vendor/R
 
 export PATH="/app/vendor/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
