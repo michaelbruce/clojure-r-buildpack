@@ -67,8 +67,15 @@ echo "Downloading and unpacking R binaries ($R_BINARIES)"
 R_BINARIES="http://heroku-buildpack-r.s3.amazonaws.com/heroku-16/R-3.4.3-binaries-20180106-1146.tar.gz"
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
-mkdir -p /app/vendor/R
-cp -r $VENDOR_DIR/R/* /app/vendor/R
+# Copy over binary files
+mkdir -p /app/vendor/R/bin
+cp $BUILD_DIR/.root/usr/bin/R /app/vendor/R/bin
+cp $BUILD_DIR/.root/usr/bin/Rscript /app/vendor/R/bin
+
+# Copy over library files
+mkdir -p /app/vendor/R/lib
+cp -r $BUILD_DIR/.root/usr/lib/R /app/vendor/R/lib/R
+cp -r $BUILD_DIR/.root/usr/lib/pkgconfig /app/vendor/R/lib/pkgconfig
 
 export PATH="/app/vendor/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
