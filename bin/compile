@@ -62,14 +62,10 @@ echo "-----> Building runtime environment for Ghostscript to $LOCATION"
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/vendor/gs/bin:\$PATH\"" > $BUILD_DIR/.profile.d/ghostscript.sh
 
-# Building R binary
-# updates can be found herehttps://heroku-buildpack-r.s3.amazonaws.com/
-R_BINARIES="http://${S3_BUCKET}.s3.amazonaws.com/heroku-16/R-3.4.3-binaries-20180106-1146.tar.gz"
-
-# vendor R into the slug
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
-# curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
-R_INSTALL_LINK="https://cran.r-project.org/bin/linux/ubuntu/trusty/r-base_3.4.3-1trusty0_all.deb"
+# updates can be found here https://heroku-buildpack-r.s3.amazonaws.com/
+R_BINARIES="http://heroku-buildpack-r.s3.amazonaws.com/heroku-16/R-3.4.3-binaries-20180106-1146.tar.gz"
+curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
 mkdir -p /app/vendor/R
 cp -r $VENDOR_DIR/R/* /app/vendor/R
