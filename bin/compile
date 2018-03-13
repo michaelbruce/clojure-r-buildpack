@@ -64,20 +64,13 @@ echo "export PATH=\"\$HOME/vendor/gs/bin:\$PATH\"" > $BUILD_DIR/.profile.d/ghost
 
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
 # updates can be found here https://heroku-buildpack-r.s3.amazonaws.com/
-R_BINARIES="http://heroku-buildpack-r.s3.amazonaws.com/heroku-16/R-3.4.3-binaries-20180106-1146.tar.gz"
+R_BINARIES="https://s3-eu-west-1.amazonaws.com/sbsl-buildpack-resources/R-3.4.3-runtime.tar.gz"
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
-# Copy over binary files
-mkdir -p /app/vendor/R/bin
-cp $BUILD_DIR/.root/usr/bin/R /app/vendor/R/bin
-cp $BUILD_DIR/.root/usr/bin/Rscript /app/vendor/R/bin
+mkdir -p /app/vendor/R
+cp -R $VENDOR_DIR/target/R/* /app/vendor/R
 
-# Copy over library files
-mkdir -p /app/vendor/R/lib
-cp -r $BUILD_DIR/.root/usr/lib/R /app/vendor/R/lib/R
-cp -r $BUILD_DIR/.root/usr/lib/pkgconfig /app/vendor/R/lib/pkgconfig
-
-export PATH="/app/vendor/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
+export PATH="$VENDOR_DIR/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
 export LD_LIBRARY_PATH="/app/.apt/usr/lib/libblas:/app/.apt/usr/lib/lapack:/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:$LIBRARY_PATH"

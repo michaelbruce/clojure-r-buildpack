@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+# Docker Shell - launches a docker container, mapping the current directory to
+# /home
+
+docker run -v `pwd`:/home -it report-service:latest
