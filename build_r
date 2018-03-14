@@ -30,7 +30,7 @@ make
 
 mkdir -p $VENDOR_DIR/R/bin
 
-cp /build/R-3.4.3/bin/R $VENDOR_DIR/R/bin/R
+cp -r /build/R-3.4.3/bin/* $VENDOR_DIR/R/bin
 cp /build/R-3.4.3/bin/Rscript $VENDOR_DIR/R/bin/Rscript
 
 mkdir -p $VENDOR_DIR/R/lib
@@ -46,5 +46,9 @@ cd $VENDOR_DIR
 sed "s/R_HOME_DIR=.*/R_HOME_DIR=\"\/app\/vendor\/R\/lib\/R\"/" R/bin/R > pwshomeR
 mv pwshomeR R/bin/R
 chmod +x R/bin/R
+
+sed "s/R_HOME_DIR=.*/R_HOME_DIR=\"\/app\/vendor\/R\/lib\/R\"/" R/lib/R/bin/R > libpwshomeR
+mv libpwshomeR R/lib/R/bin/R
+chmod +x R/lib/R/bin/R
 
 tar -C $VENDOR_DIR -cvzf /home/R-3.4.3-runtime.tar.gz .
