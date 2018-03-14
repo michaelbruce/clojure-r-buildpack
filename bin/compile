@@ -65,10 +65,13 @@ echo "export PATH=\"\$HOME/vendor/gs/bin:\$PATH\"" > $BUILD_DIR/.profile.d/ghost
 echo "Downloading and unpacking R binaries ($R_BINARIES)"
 # updates can be found here https://heroku-buildpack-r.s3.amazonaws.com/
 R_BINARIES="https://s3-eu-west-1.amazonaws.com/sbsl-buildpack-resources/R-3.4.3-runtime.tar.gz"
+rm -rf $BUILD_DIR/R
 curl $R_BINARIES -s -o - | tar xzf - -C $BUILD_DIR
 
+ls $BUILD_DIR
+
 mkdir -p /app/vendor/R
-cp -R $VENDOR_DIR/target/R/* /app/vendor/R
+cp -R $BUILD_DIR/R/* /app/vendor/R
 
 export PATH="$VENDOR_DIR/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
@@ -83,9 +86,6 @@ export LDFLAGS="-L/app/.apt/usr/lib/libblas -L/app/.apt/usr/lib/lapack $LDFLAGS"
 # copy over environment
 mkdir -p $BUILD_DIR/.profile.d
 cp "$BUILDPACK_DIR/bin/r_environment.sh" $BUILD_DIR/.profile.d/r_environment.sh
-
-# Rserve is not accessible at runtime with this one line by itself
-# R --no-save -e "install.packages('Rserve', repos='http://cran.us.r-project.org')"
 
 # Building Java binary
 

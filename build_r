@@ -40,6 +40,6 @@ for dir in bin doc etc include lib library modules share; do
   cp -r /build/R-3.4.3/$dir $VENDOR_DIR/R/lib/R
 done
 
-cd /home
+cd $VENDOR_DIR
 
-tar -cvzf R-3.4.3-runtime.tar.gz $VENDOR_DIR
+tar -C $VENDOR_DIR -cvzf /home/R-3.4.3-runtime.tar.gz .
