@@ -42,4 +42,9 @@ done
 
 cd $VENDOR_DIR
 
+# Correct R_HOME var, replaces first match only.
+sed "s/R_HOME_DIR=.*/R_HOME_DIR=\"\/app\/vendor\/R\/lib\/R\"/" R/bin/R > pwshomeR
+mv pwshomeR R/bin/R
+chmod +x R/bin/R
+
 tar -C $VENDOR_DIR -cvzf /home/R-3.4.3-runtime.tar.gz .
