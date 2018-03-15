@@ -27,28 +27,6 @@ cd $BUILD_DIR/R-3.4.3
   --enable-lto
 
 make
+make install
 
-mkdir -p $VENDOR_DIR/R/bin
-
-cp -r /build/R-3.4.3/bin/* $VENDOR_DIR/R/bin
-cp /build/R-3.4.3/bin/Rscript $VENDOR_DIR/R/bin/Rscript
-
-mkdir -p $VENDOR_DIR/R/lib
-
-for dir in bin doc etc include lib library modules share; do
-  mkdir -p $VENDOR_DIR/R/lib/R/$dir
-  cp -r /build/R-3.4.3/$dir $VENDOR_DIR/R/lib/R
-done
-
-cd $VENDOR_DIR
-
-# Correct R_HOME var, replaces first match only.
-sed "s/R_HOME_DIR=.*/R_HOME_DIR=\"\/app\/vendor\/R\/lib\/R\"/" R/bin/R > pwshomeR
-mv pwshomeR R/bin/R
-chmod +x R/bin/R
-
-sed "s/R_HOME_DIR=.*/R_HOME_DIR=\"\/app\/vendor\/R\/lib\/R\"/" R/lib/R/bin/R > libpwshomeR
-mv libpwshomeR R/lib/R/bin/R
-chmod +x R/lib/R/bin/R
-
-tar -C $VENDOR_DIR -cvzf /home/R-3.4.3-runtime.tar.gz .
+tar -C /app/vendor/R -cvzf /home/R-3.4.3-runtime.tar.gz .
