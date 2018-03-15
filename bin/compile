@@ -62,13 +62,14 @@ echo "-----> Building runtime environment for Ghostscript to $LOCATION"
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/vendor/gs/bin:\$PATH\"" > $BUILD_DIR/.profile.d/ghostscript.sh
 
-echo "Downloading and unpacking R binaries ($R_BINARIES)"
+echo "-----> Downloading and unpacking R binaries..."
 # updates can be found here https://heroku-buildpack-r.s3.amazonaws.com/
 R_BINARIES="https://s3-eu-west-1.amazonaws.com/sbsl-buildpack-resources/R-3.4.3-runtime.tar.gz"
-rm -rf $BUILD_DIR/R
+rm -rf $BUILD_DIR/R && mkdir -p $VENDOR_DIR/R
+curl $R_BINARIES -s -o - | tar xzf - -C $VENDOR_DIR/R
 
-mkdir -p /app/vendor/R
-curl $R_BINARIES -s -o - | tar xzf - -C /app/vendor/R
+echo "Contents of $VENDOR_DIR"
+ls $VENDOR_DIR
 
 export PATH="$VENDOR_DIR/R/bin:$VENDOR_DIR/wkhtmltopdf:/app/.apt/usr/bin:$PATH"
 export R_INCLUDE="/app/vendor/R/lib64/R/include"
