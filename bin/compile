@@ -2,6 +2,8 @@
 
 set -e
 
+echo "Machine information: $(uname -a)"
+
 BUILD_DIR=$1
 CACHE_DIR="$2/vendor"
 VENDOR_DIR="$BUILD_DIR/vendor"
