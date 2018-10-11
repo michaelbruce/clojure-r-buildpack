@@ -1,0 +1,10 @@
+---
+language: clojur-r
+uri_to_dependency_map: []
+dependencies:
+- name: wkhtmltopdf
+  version: 0.12.5
+  uri: https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.xenial_amd64.deb
+  sha256: 21113cf1e758fae08ef281dfe92cf21c9d51a20fd2062e3202f8309e8080d3eb
+  cf_stacks:
+  - cflinuxfs2

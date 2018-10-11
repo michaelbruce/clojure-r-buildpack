@@ -24,18 +24,18 @@ BIN_PATH="$BUILD_DIR/bin"
 
 mkdir -p $BIN_PATH $TMP_PATH
 
-WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.xenial_amd64.deb"
-WKHTMLTOPDF_DEB="$CACHE_DIR/wkhtmltox_0.12.5-1.xenial_amd64.deb"
-
-if [ -f $WKHTMLTOPDF_DEB ]; then
-  echo "-----> Using wkhtmltopdf deb from cache"
-else
-  echo "-----> Downloading wkhtmltopdf deb"
-  curl -L $WKHTMLTOPDF_URL -o $WKHTMLTOPDF_DEB
-fi
-
-echo "-----> Installing wkhtmltopdf"
-sudo dpkg -i $WKHTMLTOPDF_TAR
+# WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.xenial_amd64.deb"
+# WKHTMLTOPDF_DEB="$CACHE_DIR/wkhtmltox_0.12.5-1.xenial_amd64.deb"
+# 
+# if [ -f $WKHTMLTOPDF_DEB ]; then
+#   echo "-----> Using wkhtmltopdf deb from cache"
+# else
+#   echo "-----> Downloading wkhtmltopdf deb"
+#   curl -L $WKHTMLTOPDF_URL -o $WKHTMLTOPDF_DEB
+# fi
+# 
+# echo "-----> Installing wkhtmltopdf"
+# sudo dpkg -i $WKHTMLTOPDF_TAR
 
 # Building ghostscript
 
