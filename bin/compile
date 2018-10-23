@@ -73,6 +73,10 @@ ls $VENDOR_DIR
 
 export PATH="$VENDOR_DIR/R/bin:$VENDOR_DIR/wkhtmltopdf:$PATH"
 
+echo '==> Configure PATH for blue-review-report-services user'
+
+cp "$BUILDPACK_DIR/bin/profile.sh" $BUILD_DIR/.profile.d/profile.sh
+
 # Building Java binary
 
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
